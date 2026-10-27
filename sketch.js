@@ -3,8 +3,26 @@ let balls = [];
 let numOfBalls = 2000;
 let x, y, d, c;
 
-function setup() {
-  createCanvas(800, 800);
+////// Video ///////
+let bodySegmentation; //Define a variable to store the BodySegmentation model.
+let options = {
+  maskType: "person",
+};
+let video;
+let segmentation;
+let pixels = [];
+
+async function setup() {
+  createCanvas(640, 480);
+  bodySegmentation = await ml5.bodySegmentation("BodyPix", options);
+
+  // Create the video and hide it
+
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+  bodySegmentation.detectStart(video, gotResults);
+
   for (let i = 0; i < numOfBalls; i = i + 1) {
     x = random(0, width);
     y = random(0, height);
@@ -13,47 +31,22 @@ function setup() {
     balls[i] = new Ball(x, y, d, c);
   }
 }
+function gotResults(result) {
+  segmentation = result;
+}
 
 function draw() {
   background(0);
+  image(video, 0, 0);
+  if (segmentation) {
+    image(segmentation.mask, 0, 0, width, height);
+    segmentation.mask.loadPixels(); //
+    // read the mask's pixels once per frame
+  }
+
   for (let i = 0; i < numOfBalls; i = i + 1) {
     balls[i].show();
     balls[i].move();
-    balls[i].red();
-  }
-}
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-class Ball {
-  constructor(x, y, d, c) {
-    this.x = x;
-    this.y = y;
-    this.d = d;
-    this.color = c;
-    this.originalColor = c;
-  }
-
-  show() {
-    // let opacity= random( [100, 200])
-    fill(this.color);
-    stroke(120);
-    circle(this.x, this.y, this.d / 2);
-  }
-
-  move() {
-    xposition = random(-1, 1);
-    yposition = random(-1, 1);
-    this.x = this.x + xposition;
-    this.y = this.y + yposition;
-  }
-
-  red() {
-    let dd = dist(this.x, this.y, mouseX, mouseY);
-    if (dd < this.d / 2) {
-      this.color = "red";
-    } else {
-      this.color = this.originalColor;
-    }
+    balls[i].ballsOnBody();
   }
 }
