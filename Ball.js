@@ -24,6 +24,7 @@ class Ball {
     this.x = constrain(this.x + xposition, 0, width - 1);
     this.y = constrain(this.y + yposition, 0, height - 1);
   }
+
   red() {
     let distance = dist(this.x, this.y, mouseX, mouseY);
     if (distance < this.d / 2) {

@@ -46,10 +46,10 @@ function draw() {
 
   for (let i = 0; i < numOfBalls; i = i + 1) {
     balls[i].move();
-    balls[i].red();
     if (segmentation) {
       balls[i].ballsOnBody();
     }
     balls[i].show();
+    balls[i].red();
   }
 }
