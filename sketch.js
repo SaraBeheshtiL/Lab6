@@ -36,7 +36,7 @@ function gotResults(result) {
 }
 
 function draw() {
-  background(0);
+  background(0, 100, 50);
   image(video, 0, 0);
   if (segmentation) {
     image(segmentation.mask, 0, 0, width, height);
@@ -45,8 +45,11 @@ function draw() {
   }
 
   for (let i = 0; i < numOfBalls; i = i + 1) {
-    balls[i].show();
     balls[i].move();
-    balls[i].ballsOnBody(px, py);
+    balls[i].red();
+    if (segmentation) {
+      balls[i].ballsOnBody();
+    }
+    balls[i].show();
   }
 }
