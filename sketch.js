@@ -1,6 +1,6 @@
 let xposition, yposition;
 let balls = [];
-let numOfBalls = 2000;
+let numOfBalls = 5000;
 let x, y, d, c;
 
 ////// Video ///////
@@ -36,10 +36,10 @@ function gotResults(result) {
 }
 
 function draw() {
-  background(0, 100, 50);
-  image(video, 0, 0);
+  background(0);
+  //image(video, 0, 0);
   if (segmentation) {
-    image(segmentation.mask, 0, 0, width, height);
+    // image(segmentation.mask, 0, 0, width, height);
     segmentation.mask.loadPixels(); //
     // read the mask's pixels once per frame
   }

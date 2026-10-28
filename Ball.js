@@ -19,8 +19,8 @@ class Ball {
   move() {
     xposition = random(-1, 1);
     yposition = random(-1, 1);
-    this.x = this.x + xposition;
-    this.y = this.y + yposition;
+    // this.x = this.x + xposition;
+    // this.y = this.y + yposition;
     this.x = constrain(this.x + xposition, 0, width - 1);
     this.y = constrain(this.y + yposition, 0, height - 1);
   }
@@ -42,11 +42,9 @@ class Ball {
     let maskGreen = segmentation.mask.pixels[index + 1];
     let maskBlue = segmentation.mask.pixels[index + 2];
     // If the mask pixel at this position is not black/transparent, it's a person
-    if (
-      maskAlpha !== 0 ||
-      (maskRed !== 0 && maskGreen !== 0 && maskBlue !== 0)
-    ) {
-      this.color = "orange";
+    if (maskAlpha !== 255) {
+      // this.color = "orange";
+      this.color = color(0, 0, 0, 50);
     } else {
       this.color = this.originalColor;
     }
