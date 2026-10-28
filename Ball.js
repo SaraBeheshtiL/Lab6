@@ -24,8 +24,8 @@ class Ball {
   }
 
   ballsOnBody(px, py) {
-    let px = floor(this.x);
-    let py = floor(this.y);
+    px = floor(this.x);
+    py = floor(this.y);
     // 2. Calculate the 1D index inside the mask's pixel array
     let index = 4 * (py * width + px);
     let maskAlpha = segmentation.mask.pixels[index + 3];

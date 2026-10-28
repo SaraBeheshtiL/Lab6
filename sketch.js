@@ -47,6 +47,6 @@ function draw() {
   for (let i = 0; i < numOfBalls; i = i + 1) {
     balls[i].show();
     balls[i].move();
-    balls[i].ballsOnBody();
+    balls[i].ballsOnBody(px, py);
   }
 }
